@@ -250,7 +250,7 @@ class METRA(IOD):
             phi_y = v['next_z']
 
             if self.dual_dist == 'l2':
-                cst_dist = torch.square(y - x).mean(dim=1)
+                cst_dist = torch.square(y - x).mean(dim=1) # Mean squared error
             elif self.dual_dist == 'one':
                 cst_dist = torch.ones_like(x[:, 0])
             elif self.dual_dist == 's2_from_s':
