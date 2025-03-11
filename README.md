@@ -18,7 +18,7 @@ in the terminal type in: `ssh [gburdell]@login-ice.pace.gatech.edu`. When presse
 
 2. Clone the the official implementation.
 3. Go to requirements.txt of METRA project (you can use Remote SSH on VSCode for that) and change the instal==x.x.x to pip-install==x.x.x (the package name has been changed -- version need not be changed)
-4. Now run, `salloc --gres=gpu:A40:1 --ntasks-per-node=1` ← This allocates A40 GPU to you. There are many other GPUs which you might be able to switch between (I have not tested yet.). You need to have GPU on so that the environment we are going to create runs on GPU -- it cannot run on CPUs and installing libraries that are not GPU compatible will give you a hard time
+4. Now run, `salloc --gres=gpu:A40:1 --ntasks-per-node=1` ← This allocates A40 GPU to you. There are many other GPUs which you might be able to switch between (A100 and H100 also work). You need to have GPU on so that the environment we are going to create runs on GPU -- it cannot run on CPUs and installing libraries that are not GPU compatible will give you a hard time
 5. Run `module load anaconda3` to load conda.
 6.  Then, `conda create --name metra python=3.8` (3.8 is important… newer versions of python have dependency issues)
 7.   `conda activate metra`
