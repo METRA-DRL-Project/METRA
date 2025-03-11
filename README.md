@@ -36,12 +36,8 @@ in the terminal type in: `ssh [gburdell]@login-ice.pace.gatech.edu`. When presse
 15.  Add mujoco simulator to the path so that it can be found by METRA by typing: ` echo 'export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/home/hice1/{username}/.mujoco/mujoco210/bin"' >> .bashrc` (assuming you are at your username folder -- i.e. ls-ing gives METRA and scratch)
 16.  Link nvidia drivers with the simulator by: `echo 'export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/usr/lib/nvidia"' >> .bashrc`
 17. `source .bashrc` to activate the updates on the bashrc files.
-18. You should be done with the setup. Feel free to run any experiment as shown in the README of the metra project given at the start of this README. The one I ran is:
-```
-python tests/main.py --run_group Debug --env ant --max_path_length 200 --seed 0 --traj_batch_size 8 --n_parallel 1 --normalizer_type preset --eval_plot_axis -50 50 -50 50 --trans_optimization_epochs 50 --n_epochs_per_log 100 --n_epochs_per_eval 1000 --n_epochs_per_save 10000 --sac_max_buffer_size 1000000 --algo metra --discrete 0 --dim_option 2
-```
-
-19. Note: for pixel based environments (like humanoid, kitchen, and quadraped) you have to change mujoco version to 2.2 (installation steps are same as before).
+18. You should be done with the setup. You should be able to run ant and cheetah experiment as shown in the README of the metra project given at the end of this README.
+19. For pixel based environments (like humanoid, kitchen, and quadraped) you have to change mujoco version to 2.2 (installation steps are same as before).
 
 # Reproduced Experiment Runs
 You can view the [Code Demonstration folder](https://drive.google.com/drive/folders/1cmt6VuAH89VTA2ug0ZBflqTvUKEzJ7lO?usp=sharing) for the runs. We didn’t run the experiments to completion, as individual environment runs took the authors 16-24 hours on A5000 clusters. Instead, we ran them on a single A100 GPU with a 2-hour cap. The initial trajectories and plots (available in the linked Google Drive) appear to align with the authors' results.
