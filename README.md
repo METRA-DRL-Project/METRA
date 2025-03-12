@@ -11,20 +11,16 @@ Visit [the authors' project page](https://seohong.me/projects/metra/) for more r
 We will be using Georgia Tech's [PACE ICE](https://gatech.service-now.com/home?id=kb_article_view&sysparm_article=KB0042102) cluster for GPU compute resources.
 For any questions: refer to knowledge > all knowledge. To connect to the cluster, you need to be on eduroam wifi or be connected to the Global Connect VPN.
 
-# Steps for Setup
-1.  Logging into the cluster: `ssh [gburdell]@login-ice.pace.gatech.edu` and enter your GT password. 
-
-2. Clone the repository.
-3. Run `salloc --gres=gpu:A40:1 --ntasks-per-node=1`.
-- This allocates A40 GPU to you. There are many other GPUs which you might be able to switch between (A100 and H100 also work).
+1. Log into the cluster `ssh [gburdell]@login-ice.pace.gatech.edu` and enter your GT password. 
+2. Clone the repository `git clone https://github.com/METRA-DRL-Project/METRA.git`.
+3. Allocate A40 GPU `salloc --gres=gpu:A40:1 --ntasks-per-node=1`. Optionally use A100 or H100.
 5. Load Conda `module load anaconda3`.
 6. Create conda env `conda create --name metra python=3.8` (3.8 is important… newer versions of python have dependency issues).
 7. Activate conda env `conda activate metra`.
 8. Install dependencies `cd METRA && pip install -r requirements.txt --no-deps`
-9. Run `pip install -e .`
-- If swig not found, run `pip install swig`
+9. Run `pip install -e .` If swig not found, run `pip install swig`
 9. Run `pip install -e garaged`
-- Solving protobuf and joblib error: run `pip install -U protobuf==3.19.4` and `pip install -U joblib==1.2.0`
+10. Solving protobuf and joblib error: `pip install -U protobuf==3.19.4` and `pip install -U joblib==1.2.0`
 
 ## Setup Mujoco 
 10. `cd.. && mkdir .mujoco && cd .mujoco` in the same root directory as METRA.
@@ -34,7 +30,7 @@ For any questions: refer to knowledge > all knowledge. To connect to the cluster
 14. Add nvidia drivers to the path `echo 'export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/usr/lib/nvidia"' >> .bashrc`
 15. Run `source .bashrc`
 16. You should be done with the setup. You should be able to run ant and cheetah experiments as shown below.
-27. For pixel based environments (like humanoid, kitchen, and quadraped) you have to change mujoco version to 2.2 (installation steps are same as before).
+17. For pixel based environments (like humanoid, kitchen, and quadraped) you have to change mujoco version to 2.2 (installation steps are same as before).
 
 # Reproduced Experiment Runs
 You can view the [Code Demonstration folder](https://drive.google.com/drive/folders/1cmt6VuAH89VTA2ug0ZBflqTvUKEzJ7lO?usp=sharing) for the runs. We didn’t run the experiments to completion, as individual environment runs took the authors 16-24 hours on A5000 clusters. Instead, we ran them on a single A100 GPU with a 2-hour cap. The initial trajectories and plots (available in the linked Google Drive) align with the authors' results.
