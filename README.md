@@ -8,45 +8,42 @@ Visit [the authors' project page](https://seohong.me/projects/metra/) for more r
 
 
 # Setup on GT PACE Cluster
-We will be using Georgia Tech's [PACE](https://gatech.service-now.com/home?id=kb_article_view&sysparm_article=KB0042102) cluster for resources and high performace computing.
-For any questions: refer to knowledge > all knowledge and you can search it up. This compute is free (and theoretically unlimited -- students are queued though) for all GT Students (or at least CoC students). We use ICE clusters because Phoenix is used by Research people. To connect to the cluster, you need to be on eduroam wifi or have VPN. You can use Global Connect’s desktop VPN.
+We will be using Georgia Tech's [PACE ICE](https://gatech.service-now.com/home?id=kb_article_view&sysparm_article=KB0042102) cluster for GPU compute resources.
+For any questions: refer to knowledge > all knowledge. To connect to the cluster, you need to be on eduroam wifi or be connected to the Global Connect VPN.
 
 # Steps for Setup
 1.  Logging into the cluster:
-in the terminal type in: `ssh [gburdell]@login-ice.pace.gatech.edu`. When pressed enter it will ask your password which will be your GT password. 
-- Within your directory, /home/hice1/[gburdell]/ will be a scratch folder -- it is a temporary folder, don't put useful stuff in it.
+in the terminal type in: `ssh [gburdell]@login-ice.pace.gatech.edu` and enter your GT password. 
 
-2. Clone the the official implementation.
+2. Clone the repository.
 3. Go to requirements.txt of METRA project (you can use Remote SSH on VSCode for that) and change the instal==x.x.x to pip-install==x.x.x (the package name has been changed -- version need not be changed)
-4. Now run, `salloc --gres=gpu:A40:1 --ntasks-per-node=1` ← This allocates A40 GPU to you. There are many other GPUs which you might be able to switch between (A100 and H100 also work). You need to have GPU on so that the environment we are going to create runs on GPU -- it cannot run on CPUs and installing libraries that are not GPU compatible will give you a hard time
+4. Now run, `salloc --gres=gpu:A40:1 --ntasks-per-node=1` ← This allocates A40 GPU to you. There are many other GPUs which you might be able to switch between (A100 and H100 also work).
 5. Run `module load anaconda3` to load conda.
 6.  Then, `conda create --name metra python=3.8` (3.8 is important… newer versions of python have dependency issues)
 7.   `conda activate metra`
 8.   `pip install -r requirements.txt --no-deps`
-9.   Now, step inside the METRA folder (i.e. cd METRA) and run `pip install -e .` -- This might result in some dependencies conflict between protobuf, scipy, tensorboard and joblib. We will resolve that soon.
+9.   `cd METRA` and run `pip install -e .` -- This might result in some dependencies conflict between protobuf, scipy, tensorboard and joblib. We will resolve that soon.
 - If it says couldn’t find swig, run `pip install swig`
-
-10. Being inside the folder run `pip install -e garaged`
-- If it says couldn’t find swig, run `pip install swig`
-
+10. Run `pip install -e garaged`
 11. Solving protobuf and joblib error: run `pip install -U protobuf==3.19.4` and `pip install -U joblib==1.2.0`
-12. Setting up mujoco simulator (in the next many steps). You can download Mujocu for linux on macOS using the link on the third step of [here](https://gist.github.com/saratrajput/60b1310fe9d9df664f9983b38b50d5da)
-13.  Create a .mujoco folder at the same level as METRA and scratch. And transfer the .tar.gz file in this folder (you can use FileZilla for transfer)
-14.  Unzip the .tar.gz file by `tar -xvf mujoco210-linux-x86_64.tar.gz` (Assuming that you are now inside the .mujoco folder)
-15.  Add mujoco simulator to the path so that it can be found by METRA by typing: ` echo 'export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/home/hice1/{username}/.mujoco/mujoco210/bin"' >> .bashrc` (assuming you are at your username folder -- i.e. ls-ing gives METRA and scratch)
-16.  Link nvidia drivers with the simulator by: `echo 'export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/usr/lib/nvidia"' >> .bashrc`
-17. `source .bashrc` to activate the updates on the bashrc files.
-18. You should be done with the setup. You should be able to run ant and cheetah experiment as shown in the README of the metra project given at the end of this README.
-19. For pixel based environments (like humanoid, kitchen, and quadraped) you have to change mujoco version to 2.2 (installation steps are same as before).
+
+## Setup Mujoco 
+12.  Download Mujocu for linux using the link [here](https://gist.github.com/saratrajput/60b1310fe9d9df664f9983b38b50d5da)
+14.  Create a .mujoco folder in the same directory as METRA. Transfer the .tar.gz file to this folder (you can use FileZilla for transfer).
+15.  Unzip the .tar.gz file by `tar -xvf mujoco210-linux-x86_64.tar.gz`
+16.  Add mujoco simulator to the path so that it can be found by METRA by typing: ` echo 'export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/home/hice1/{username}/.mujoco/mujoco210/bin"' >> .bashrc` 
+17.  Link nvidia drivers with the simulator by: `echo 'export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/usr/lib/nvidia"' >> .bashrc`
+18. `source .bashrc` to activate the updates on the bashrc files.
+19. You should be done with the setup. You should be able to run ant and cheetah experiments as shown below.
+20. For pixel based environments (like humanoid, kitchen, and quadraped) you have to change mujoco version to 2.2 (installation steps are same as before).
 
 # Reproduced Experiment Runs
-You can view the [Code Demonstration folder](https://drive.google.com/drive/folders/1cmt6VuAH89VTA2ug0ZBflqTvUKEzJ7lO?usp=sharing) for the runs. We didn’t run the experiments to completion, as individual environment runs took the authors 16-24 hours on A5000 clusters. Instead, we ran them on a single A100 GPU with a 2-hour cap. The initial trajectories and plots (available in the linked Google Drive) appear to align with the authors' results.
+You can view the [Code Demonstration folder](https://drive.google.com/drive/folders/1cmt6VuAH89VTA2ug0ZBflqTvUKEzJ7lO?usp=sharing) for the runs. We didn’t run the experiments to completion, as individual environment runs took the authors 16-24 hours on A5000 clusters. Instead, we ran them on a single A100 GPU with a 2-hour cap. The initial trajectories and plots (available in the linked Google Drive) align with the authors' results.
 
 # Dependencies
 ## Python and Package Management
 - Python 3.8
 - Conda (Anaconda3)
-
 
 ## Additional Dependencies
 - Mujoco 2.1.0 (Linux/macOS)
