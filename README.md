@@ -22,7 +22,7 @@ For any questions: refer to knowledge > all knowledge. To connect to the cluster
 7. Activate conda env `conda activate metra`.
 8. Install dependencies `cd METRA && pip install -r requirements.txt --no-deps`
 9. Run `pip install -e .`
-- If it says couldn’t find swig, run `pip install swig`
+- If swig not found, run `pip install swig`
 9. Run `pip install -e garaged`
 - Solving protobuf and joblib error: run `pip install -U protobuf==3.19.4` and `pip install -U joblib==1.2.0`
 
