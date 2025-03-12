@@ -18,17 +18,17 @@ For any questions: refer to knowledge > all knowledge. To connect to the cluster
 6. Create conda env `conda create --name metra python=3.8` (3.8 is important… newer versions of python have dependency issues).
 7. Activate conda env `conda activate metra`.
 8. Install dependencies `cd METRA && pip install -r requirements.txt --no-deps`
-9. Run `pip install -e .` If swig not found, run `pip install swig`
+9. Run `pip install -e .` If swig not found, run `pip install swig`.
 9. Run `pip install -e garaged`
-10. Solving protobuf and joblib error: `pip install -U protobuf==3.19.4` and `pip install -U joblib==1.2.0`
+10. Solving protobuf and joblib error: `pip install -U protobuf==3.19.4` and `pip install -U joblib==1.2.0`.
 
 ## Setup Mujoco 
-10. `cd.. && mkdir .mujoco && cd .mujoco` in the same root directory as METRA.
-11. Download Mujocu for linux using the link [here](https://gist.github.com/saratrajput/60b1310fe9d9df664f9983b38b50d5da)
-12. Unzip the .tar.gz file `tar -xvf mujoco210-linux-x86_64.tar.gz`
-13. Add mujoco simulator to the path ` echo 'export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/home/hice1/{username}/.mujoco/mujoco210/bin"' >> .bashrc` 
-14. Add nvidia drivers to the path `echo 'export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/usr/lib/nvidia"' >> .bashrc`
-15. Run `source .bashrc`
+10. Create a directory for Mujoco `cd.. && mkdir .mujoco && cd .mujoco`.
+11. Download [Mujocu](https://mujoco.org/download/mujoco210-linux-x86_64.tar.gz) for linux.
+12. Unzip the .tar.gz file `tar -xvf mujoco210-linux-x86_64.tar.gz`.
+13. Add mujoco simulator to the path ` echo 'export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/home/hice1/{username}/.mujoco/mujoco210/bin"' >> .bashrc`.
+14. Add nvidia drivers to the path `echo 'export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/usr/lib/nvidia"' >> .bashrc`.
+15. Run `source .bashrc`.
 16. You should be done with the setup. You should be able to run ant and cheetah experiments as shown below.
 17. For pixel based environments (like humanoid, kitchen, and quadraped) you have to change mujoco version to 2.2 (installation steps are same as before).
 
