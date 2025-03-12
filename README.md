@@ -1,11 +1,6 @@
 # METRA: Scalable Unsupervised RL with Metric-Aware Abstraction
 
 This repository contains the official implementation of **METRA: Scalable Unsupervised RL with Metric-Aware Abstraction**.
-The implementation is based on
-[Lipschitz-constrained Unsupervised Skill Discovery](https://github.com/seohongpark/LSD).
-
-Visit [the authors' project page](https://seohong.me/projects/metra/) for more results including videos.
-
 
 # Setup on GT PACE Cluster
 We will be using Georgia Tech's [PACE ICE](https://gatech.service-now.com/home?id=kb_article_view&sysparm_article=KB0042102) cluster for GPU compute resources.
