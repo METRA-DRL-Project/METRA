@@ -12,16 +12,16 @@ We will be using Georgia Tech's [PACE ICE](https://gatech.service-now.com/home?i
 For any questions: refer to knowledge > all knowledge. To connect to the cluster, you need to be on eduroam wifi or be connected to the Global Connect VPN.
 
 # Steps for Setup
-1.  Logging into the cluster:
-In the terminal type: `ssh [gburdell]@login-ice.pace.gatech.edu` and enter your GT password. 
+1.  Logging into the cluster: `ssh [gburdell]@login-ice.pace.gatech.edu` and enter your GT password. 
 
 2. Clone the repository.
-3. Run `salloc --gres=gpu:A40:1 --ntasks-per-node=1`. This allocates A40 GPU to you. There are many other GPUs which you might be able to switch between (A100 and H100 also work).
-4. Run `module load anaconda3` to load conda.
-5. Create conda env `conda create --name metra python=3.8` (3.8 is important… newer versions of python have dependency issues)
-6. Activate conda env `conda activate metra`
-7. Install dependencies `cd METRA && pip install -r requirements.txt --no-deps`
-8. Run `pip install -e .` -- This might result in some dependencies conflict between protobuf, scipy, tensorboard and joblib. We will resolve that soon.
+3. Run `salloc --gres=gpu:A40:1 --ntasks-per-node=1`.
+- This allocates A40 GPU to you. There are many other GPUs which you might be able to switch between (A100 and H100 also work).
+5. Load Conda `module load anaconda3`.
+6. Create conda env `conda create --name metra python=3.8` (3.8 is important… newer versions of python have dependency issues).
+7. Activate conda env `conda activate metra`.
+8. Install dependencies `cd METRA && pip install -r requirements.txt --no-deps`
+9. Run `pip install -e .`
 - If it says couldn’t find swig, run `pip install swig`
 9. Run `pip install -e garaged`
 - Solving protobuf and joblib error: run `pip install -U protobuf==3.19.4` and `pip install -U joblib==1.2.0`
